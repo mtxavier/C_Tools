@@ -2,7 +2,7 @@
 static int a = 15;
 main() {
     /* scope check */ {
-       int a;
+        int a;
         a = 16;
         printf("inner a == %d\n",a);
     }
