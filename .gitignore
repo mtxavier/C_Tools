@@ -1,0 +1,6 @@
+*.o
+*~
+*.test
+*.Test
+*.tmp
+*.swp
