@@ -1,0 +1,87 @@
+
+typedef struct p3d {
+    int x,y,z;
+} Point3d;
+
+typedef struct {
+    int x,y,z;
+} Vector3d;
+
+typedef struct {
+    Point3d Org;
+    Vector3d Dim;
+} Box;
+
+typedef struct {
+    Point3d Org;
+    int Rayon;
+} Sphere;
+
+typedef struct {
+    string Label;
+    Point3d Org;
+} Banneer;
+
+typedef int Array16Int[16];
+
+typedef Sphere SphereConst(Point3d Org,int Rayon);
+
+typedef struct {
+    int r,g,b;
+} Color;
+
+typedef string *StringPtr;
+
+typedef Color (*Bright)();
+
+typedef int *ArrayPtr[?(3>=4,4*(20+12),22)];
+
+int a=(35+8*24+11)>>3;
+string b="Hello"~" the ",c="World",d;
+d=b~c~"!";
+
+string e;
+{
+    string a;
+    a = c~b;
+    e = a~"kitty"~"!";
+}
+
+Point3d Fib(Point3d A) =  {
+    Point3d C = ?(A.x<=0,(A.x+10,A.y,A.z),Fib((A.x-10,A.y+2,A.z+A.y)));
+   // Point3d C = ?(A.x<=0,(A.x+10,A.y,A.z),(A.x-10,A.y+2,A.z+A.y));
+    x = C.x; y = C.y; z = C.z;
+};
+
+Point3d xFib = Fib((22,4,0));
+Point3d yFib = ?(12<=0,(12+10,4,0),(12-10,4+2,4+0));
+
+Point3d org = (25,12,6);
+Point3d M = { int a; a=12; x=org.x+2*a; y=3*a; z=a/2; };
+
+Point3d p3dAdd(Point3d org,Vector3d offset) = {
+    x = org.x + offset.x;
+    y = org.y + offset.y;
+    z = org.z + offset.z;
+};
+
+Vector3d v3dDep(Point3d A,Point3d B) = {
+    x = B.x-A.x;
+    y = B.y-A.y;
+    z = B.z-A.z;
+};
+
+Vector3d v3dScale(int s,Vector3d A) = (s*A.x,s*A.y,s*A.z);
+
+Point3d p3dAt(Point3d loc) = {
+    x = org.x + loc.x;
+    y = org.y + loc.y;
+    z = org.z + loc.z;
+};
+
+Point3d A = p3dAdd((0,14,12),(24,35,17));
+Point3d B = p3dAdd(org,(15,-12,22));
+Point3d C = p3dAt((12,34,25));
+
+Point3d D = p3dAdd(org,v3dScale(4,v3dDep(org,B)));
+

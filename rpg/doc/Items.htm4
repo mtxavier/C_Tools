@@ -1,0 +1,179 @@
+include(core.m4)dnl
+depend_on(HTML)dnl
+depend_on(LexFR)dnl
+
+DocBegin(Les objets)
+
+hdr_(1,Lieux speciaux et mobilier)
+
+hdr_(2,Territoires et lieux sanctifi&eacute;s.)
+
+Les territoires et lieux sanctifi&eacute;s sont caracter(is&eacute;s)
+par une zone d'influence. br_
+Cette zone d'influence peut avoir plusieurs types d'origine:
+list_({
+    Environemental: Dans ce cas la source est probablement exte(rieur), 
+provient d'un effet a_ grande ech(elle) ou est intrins&egrave;que. br_
+    Quoiqu'il en soit, la pre(sence) de cette influence, ainsi que les
+parametre(s) associ&eacute;s sont inscrits dans les variables 
+environementales de la zone ou du terrain. br_
+},{
+    Sources: Les sources peuvent etre situ&eacute;es a_ des points ou des
+zones d'ancrage, qui peuvent etre fixes ou mobiles. La zone d'influence s'etend
+dans un certain rayon autour de la source. br_
+    Suivant le type de d'influence et la capacit&eacute; de calcul dont on 
+dispose, on peut ajouter des nuances comme des influences d&eacute;gressives en
+fonction du rayon, des regle(s) de synergie qui expliquent les effets de 
+l'int&eacute;raction entre diverses sources sur la zone d'influence, et des 
+regle(s) de r&eacute;manence qui expliquent l'evo(lution) de la zone d'influence
+dans le temps (particuli&egrave;rement dans le cadre des sources en mouvement...).
+},{
+    Territoriale: une ser(ie) de points d'ancrage del(imitent) une 
+fronti&egrave;re. La zone d'influence se situe a_ l'int&eacute;rieur de cette
+fronti&egrave;re.
+})
+La fonction d'un certain nombre d'objets est de fournir la vari&eacute;t&eacute; de 
+points d'ancrages qui a ete mention&eacute;. Des exemples: br_
+list_({
+    Torches, lanternes et autres sources de lumi&egrave;re.
+},{
+    Feu de camps: source de lumi&egrave;re et de chaleur.
+},{
+    Murs/toits: fronti&egrave;re contre le vent, la pluie, le soleil... Dans certains
+univers, cela abrite aussi contre certaines cre(atures) et esprits malfaisant.
+},{
+    Les cercles d'invocations: del(imitent) un territoire dans lequel une cre(ature) 
+extraplanaire est autoris&eacute;e a_ se manifester. Ils sont cr&eacute;&eacute;s a_
+l'aide de mat&eacute;riel d'invocation, comme des pigments, de la peinture et autres
+correctement sanctifi&eacute;s. br_
+})
+
+hdr_(2,Ateliers)
+
+Les ateliers sont des lieux am&eacute;nag&eacute;s pour permettre ou faciliter 
+l'execution de tache(s) complexes. Il sont souvents destin&eacute)s a_ la 
+fabrication ou a_ la deconcoctions d'objets et pr&eacute;parations. br_
+Si des outils sp&eacute;cifiques sont n&eacute;cessaires a_ la tache, ces
+outils doivent etre pr&eacute;sents et accessibles dans l'atelier. Il est
+ega(lement) acceptable que ces outils soient simplement en possession de
+l'artisan. br_
+Une part important de ce que fournit l'atelier est un espace de travail 
+adapt&eacute; a_ la tache, sous forme de place, et parfois de conditions
+environementales adapt&eacute;es. br_ 
+
+hdr_(1,Equipement)
+
+hdr_(2,Vetements,armures)
+
+Un personnage ordinaire a un certain nombre de slots d'&eacute;quipements. br_
+list_({
+    T&eacute;te 1: Bandana, bandeau.
+},{
+    T&eacute;te 2: Casques, Couvre chefs
+},{
+    Yeux: Lunettes, monocles.
+},{
+    Oreilles 1,2: Boucles, pendants.
+},{
+    Menton: Masque
+},{
+    Cou: Amulette, M&eacute;daillon
+},{
+    Epaules 1: Cape.
+},{
+    Epaules 2: Sac a dos.
+},{
+    Epaules 3,4: Bandoulieres, Sacoches, Carquois.
+},{
+    Torse 1: Chemise.
+},{
+    Torse 2: Plastron, Manteau.
+},{
+    Poignets: Bracelet
+},{
+    Mains 1: Gants.
+},{
+    Main 1: Arme principale.
+},{
+    Main 2: Arme secondaire.
+},{
+    Doigts 1,2: Anneaux
+},{
+    Ceinture: Ceinture.
+},{
+    Cuisse 1: Pantalons, jupes
+},{
+    Cuisse 2: Cuissardes.
+},{
+    Jambes : Bottes.
+},{
+    Pieds : Chaussure.
+})
+Il est possible de rajouter des slots au fur et a_ mesure des besoins. br_
+Les regle(s):
+list_({
+    Les equi(pements) de(clarent) de quels types de slots ils ont besoin pour 
+etre equi(p&eacute;s). Ainsi que le nombre de chaque type dont ils ont besoin.
+},{
+    Chaque type de slot indique le nombre de slot disponible par def(aut).
+},{
+    Chaque type d'individu dec(lare) les exception a_ la re_g(le)
+prE(cE(dente)). Pour chaque exception, il dE(clare) le nombre de slot dont
+il dispose (0 si ce slot n'est pas disponible).
+},{
+    Il peut arriver que certains individus fassent exception a_ leur type. Ils
+le dec(larent) individuellement.
+},{
+    Quand un nouveau type de slot est introduit, la liste des exceptions 
+(type d'individu + nombre de slot). Doit etre indiqu&eacute;.
+},{
+    En cas de polymorphisme, les equi(pements) qui ne trouvent plus le nombre de
+slot adapt&eacute;s sont dEs(equi(pE(s))).
+})
+
+hdr_(3,Enchantement)
+
+Chaque pie_(ce) d'equi(pement) peut etre enchant&eacute;. On distingue plusieurs
+types d'enchantements:
+list_({
+    Les enchantements mineurs se caract&eacute;risent par le fait qu'ils sont
+suffisament faibles pour pouvoir se soutenir eux meme en puisant dans 
+l'environnement. br_
+    Souvent ils apportent un resistance accrue a_ l'usure et a_ la corrosion. br_
+    Une dE(tection) de la magie les mettra en &eacute;vidence. br_
+    Ils constituent une eta(pe) prE(liminaire) a_ l'adjonction 
+d'enchantements plus importants. Plus prE(cis&eacute;ment), les enchantements
+de niveau supE(rieurs) s'ancrent sur les enchantements mineurs. br_
+},{
+   Les enchantements standards am&eacute;liorent les objets auquels ils sont 
+liE(s), voir leur ajoutent des fonctionalit&eacute;s. br_
+   Ils doivent etre soutenus, gener(alement) par leur porteur, pour etre 
+actifs. br_
+Ce soutient n'est souvent pas conscient, bien qu'il soit possible de modifier 
+les enchantements actifs. br_
+Maintenir les enchantements utilisent les meme(s) ressources que celles 
+utilis&eacute;s pour les comp&eacute;tences magiques. Cela veut dire que tant
+que les enchantements sont actifs, ces ressources ne se renouvellent pas (ou
+plutot, elles sont consomm&eacute;es par le maintien des enchantements). br_
+})
+
+hdr_(3,Armure)
+
+L'armure a plusieurs effets mE(caniques):
+list_({
+    Am&eacute;lioration de la def(ense). Utilis&eacute; en def(ense) active, 
+seul le meilleurs score de cet effet, sur l'ensemble des pie_(ces) disponibles
+est appliqu&eacute;. (Cela correspond en gener(al) au plastron ou au bouclier).
+},{
+    R&eacute;duction des dE(gats). br_
+En cas d'attaque cibl&eacute;e, un jet de localisation est fait. C'est le score 
+de la pie_(ce) cibl&eacute;e qui est utilis&eacute;. br_
+En cas d'attaque de zone, c'est la pie_(ce) de poids le plus fort qui compte
+(gener(alement) le plastron). br_
+Dans tout les cas, la rE(duction) de dE(gat) du bouclier ou de l'arme s'ajoute 
+en cas de parade rE(ussie). br_
+})
+
+hdr_(2,Outils)
+
+DocEnd

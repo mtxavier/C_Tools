@@ -1,0 +1,14 @@
+ifdef(_core_def_,,dnl
+    changequote({,})dnl
+    define({_core_def_},{{_core_def_}})dnl
+)dnl
+ifdef({_core_def_},,dnl
+    changecom({$rem})dnl
+    define(depend_on,{dnl
+        ifdef(dnl
+            _{}$1{}_def_,,dnl
+            define(_{}$1{}_def_,_{}$1{}_defined_)dnl
+            include($1.m4)dnl
+        )dnl
+    })dnl
+)dnl

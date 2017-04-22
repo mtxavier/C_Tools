@@ -1,0 +1,30 @@
+#define a 500
+#define b 40
+#define c 8
+(a+b)+c
+(500+40)+8
+a
+b
+500
+40
+c
+8
+a+b
+500+40
+a*b+c
+500*40+8
+c+(a%b)
+(a/b)*b
+(a<=b)
+(a<=b)||c
+c==c
+b==40
+b<<3
+b>>3
+c-70
+(-24)*12
+defined (a)
+defined z
+defined (b) && defined a
+a <= b ? a:b
+a >= b ? a:b
