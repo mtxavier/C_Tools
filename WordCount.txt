@@ -1,0 +1,178 @@
+/*  Fondement Michtam
+ *  Copyright (C) 2011 Xavier Lacroix
+ *
+ *  This program is free software; you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation; either version 2 of the License, or
+ *  (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, write to the Free Software
+ *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+#include <Classes.h>
+#include <StackEnv.h>
+#include <Patricia.h>
+#include <Tools.h>
+
+#include <stdio.h>
+#include <string.h>
+
+static int Blanks[256];
+static int Charac[256];
+
+void InitCharac(void) {
+	int i;
+	char *p;
+	static char theblanks[] = " \t\b\r\n";
+	for (i=0;i<256;i++) { Blanks[i] = Charac[i] = (0!=0); }
+    p = theblanks;
+	while (*p) { Blanks[*p]=(0==0); p++; }
+	Blanks[*p] = (0==0);
+	for (i='a';i<='z';i++) {
+		Charac[i] = (0==0);
+		Charac[i+'A'-'a'] = (0==0);
+	}
+	for (i='0';i<='9';i++) { Charac[i] = (0==0);}
+	Charac['_']=(0==0);
+}
+
+typedef struct {
+	PatriciaNod PatriciaNod;
+	int Count;
+} WordCount;
+
+typedef struct {
+	FILE *f;
+	PatriciaNod Words;
+	char fwd[8],*p,*e;
+} FileParseCtx;
+
+FileParseCtx *FileParseCtxNew(char *Name) {
+	FileParseCtx *r;
+	rPush(r);
+	r->e = r->p = r->fwd;
+	PatriciaInit(&r->Words);
+    r-> f = fopen(Name,"r");
+	if (r->f==NULL) {
+		printf("Erreur d'ouverture du fichier %s\n",Name);
+	}
+	return r;
+}
+
+void FileParseCtxClose(FileParseCtx *t) {
+	if (t->f) {
+		fclose(t->f);
+		t->f = 0;
+	}
+}
+
+inline int FileParseGetChar(FileParseCtx *pc) {
+	int c;
+    if (pc->p<pc->e) {
+		c = *pc->p;
+		pc->p++; 
+		if (pc->p>=pc->e) {pc->p = pc->e = pc->fwd; }
+	} else {
+		c = fgetc(pc->f);
+	}
+    return c;
+}
+int FileParseSkipBlank(FileParseCtx *pc) {
+	int c,cont,r;
+	r = (0==0);
+	do {
+		c = FileParseGetChar(pc);
+		r = (c!=EOF);
+		if (!r) c =' ';
+		cont = Blanks[c];
+	} while(r&&cont);
+    if (r) { *pc->e = c; pc->e++; }
+	return r;
+}
+int FileParseCtxNextWord(FileParseCtx *pc) {
+	int r,c,cont;
+	char cword[256],*q;
+	r = (pc->f!=NULL);
+	if (r) {
+		q = cword;
+        r = FileParseSkipBlank(pc);
+		c = FileParseGetChar(pc);
+		r = (c!=EOF);
+		if (!r) c=' ';
+        cont = Charac[c];
+		if (!cont) {
+			if (!Blanks[c]) {
+				*q++=c;
+			}
+		} else {
+			*q++ = c;
+		    while (r&&cont) {
+		        c = FileParseGetChar(pc);
+			    r = (c!=EOF);
+			    if (!r) c=' ';
+                cont = Charac[c];
+				if (cont) { *q++ = c; }
+		    }
+			if (!cont) {
+				*pc->e = c; pc->e++;
+			}
+		}
+		*q++ = 0;
+		if (cword[0]!=0) {
+			WordCount *F;
+			PatriciaNod *f;
+			f = PatriciaSeek(&pc->Words,cword);
+			if (f==&pc->Words) {
+				int sz;
+				char *nn,*p,*q;
+				sz = ((q-cword)+3)&(-4);
+				rnPush(nn,sz);
+				rPush(F);
+				F->Count = 0;
+				strcpy(nn,cword);
+				PatriciaSeekOrInsert(&pc->Words,nn,&F->PatriciaNod);
+			} else {
+				F = CastBack(WordCount,PatriciaNod,f);
+            }
+		    F->Count++;
+		}
+	}
+	return r; 
+}
+
+PatriciaNod *PrintCount(PatriciaNod *n,void *clos) {
+	WordCount *N;
+	N = CastBack(WordCount,PatriciaNod,n);
+	printf("%s : %d\n",n->Key,N->Count);
+	return 0;
+}
+
+int main(int argc,char **argv) {
+	FileParseCtx *pc;
+	char *name;
+	static char *ZeroStr="";
+	EnvOpen(4096,4096);
+	InitCharac();
+	if (argc>1) {
+	    name = argv[1];
+	} else {
+		name = ZeroStr;
+	}
+	printf("First arg: \"%s\"\n",name);
+    pc = FileParseCtxNew(name);
+	if (pc->f!=NULL) {
+		while (FileParseCtxNextWord(pc)) {}
+		FileParseCtxClose(pc);
+		PatriciaForEach(&pc->Words,PrintCount,0);
+	}
+	EnvClose();
+	return 0;
+}
+
